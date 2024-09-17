@@ -2,6 +2,9 @@
 import Dispatch
 import Foundation
 import SwiftMsgpack
+#if canImport(FoundationNetworking)
+    import FoundationNetworking
+#endif
 
 func throttle<T>(_ function: @escaping (T) -> Void, throttleInterval: DispatchTimeInterval) -> ((T) -> Void) {
     var lastExecution = DispatchTime.now()
