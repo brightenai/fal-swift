@@ -35,7 +35,7 @@ public protocol Client {
 
     var queue: Queue { get }
 
-    var realtime: Realtime { get }
+//    var realtime: Realtime { get }
 
     var storage: Storage { get }
 

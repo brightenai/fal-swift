@@ -60,6 +60,15 @@ extension Client {
         return data
     }
 
+    func sharedData(for request:URLRequest) async throws  -> (Data, URLResponse)
+    {
+//        #if os(Linux)
+        return try await URLSession.shared.asyncData(from: request)
+//        #else
+//        return try await URLSession.shared.data(for: request)
+//        #endif
+    }
+    
     func checkResponseStatus(for response: URLResponse, withData data: Data) throws {
         guard response is HTTPURLResponse else {
             throw FalError.invalidResultFormat
@@ -81,5 +90,44 @@ extension Client {
     var userAgent: String {
         let osVersion = ProcessInfo.processInfo.operatingSystemVersionString
         return "fal.ai/swift-client 0.1.0 - \(osVersion)"
+    }
+}
+/// Defines the possible errors
+public enum URLSessionAsyncErrors: Error {
+    case invalidUrlResponse, missingResponseData
+}
+
+/// An extension that provides async support for fetching a URL
+///
+/// Needed because the Linux version of Swift does not support async URLSession yet.
+public extension URLSession {
+ 
+    /// A reimplementation of `URLSession.shared.data(from: url)` required for Linux
+    ///
+    /// - Parameter url: The URL for which to load data.
+    /// - Returns: Data and response.
+    ///
+    /// - Usage:
+    ///
+    ///     let (data, response) = try await URLSession.shared.asyncData(from: url)
+    func asyncData(from url: URLRequest) async throws -> (Data, URLResponse) {
+        return try await withCheckedThrowingContinuation { continuation in
+            let task = self.dataTask(with: url) { data, response, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                    return
+                }
+                guard let response = response as? HTTPURLResponse else {
+                    continuation.resume(throwing: URLSessionAsyncErrors.invalidUrlResponse)
+                    return
+                }
+                guard let data = data else {
+                    continuation.resume(throwing: URLSessionAsyncErrors.missingResponseData)
+                    return
+                }
+                continuation.resume(returning: (data, response))
+            }
+            task.resume()
+        }
     }
 }

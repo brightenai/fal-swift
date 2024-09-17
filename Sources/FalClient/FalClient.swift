@@ -25,7 +25,7 @@ public struct FalClient: Client {
 
     public var queue: Queue { QueueClient(client: self) }
 
-    public var realtime: Realtime { RealtimeClient(client: self) }
+//    public var realtime: Realtime { RealtimeClient(client: self) }
 
     public var storage: Storage { StorageClient(client: self) }
 
