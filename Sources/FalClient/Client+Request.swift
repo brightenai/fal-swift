@@ -55,7 +55,7 @@ extension Client {
         if input != nil, options.httpMethod != .get {
             request.httpBody = input
         }
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, response) = try await URLSession.shared.asyncData(from: request)
         try checkResponseStatus(for: response, withData: data)
         return data
     }

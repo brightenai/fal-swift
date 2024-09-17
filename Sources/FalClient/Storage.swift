@@ -118,7 +118,7 @@ struct StorageClient: Storage {
         request.setValue(type.mimeType, forHTTPHeaderField: "Content-Type")
         request.setValue(String(data.count), forHTTPHeaderField: "Content-Length")
 
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let (data, response) = try await URLSession.shared.asyncData(from: request)
         try client.checkResponseStatus(for: response, withData: data)
 
         return uploadUrl.fileUrl
