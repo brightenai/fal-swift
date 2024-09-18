@@ -28,6 +28,7 @@ let package = Package(
             name: "FalClient",
             dependencies: [
 				.product(name: "NIOCore", package: "swift-nio"),
+				.product(name: "NIOFoundationCompat", package: "swift-nio"),
 				.product(name: "AsyncHTTPClient", package: "async-http-client"),
                 .product(name: "NIOCore", package: "swift-nio"),
                 .product(name: "SwiftMsgpack", package: "swift-msgpack"),
