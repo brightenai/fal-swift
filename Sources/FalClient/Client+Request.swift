@@ -74,9 +74,10 @@ extension Client {
 
         let d:ResponseX = try await withThrowingTaskGroup(of: ResponseX.self) { group in
             
+            let request2 = request
             group.addTask
             {
-                let (data, response) = try await URLSession.shared.asyncData(from: request)
+                let (data, response) = try await URLSession.shared.asyncData(from: request2)
                 
                 return ResponseX(data: data, response: response)
             }
