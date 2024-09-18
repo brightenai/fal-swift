@@ -14,13 +14,13 @@ extension HTTPURLResponse {
 extension Client {
     func sendRequest(to urlString: String, input: Data?, queryParams: [String: Any]? = nil, options: RunOptions) async throws -> Data {
         
-//        print("Client send request \(urlString)")
+        print("Client send request \(urlString)")
         
         guard var url = URL(string: urlString) else {
             throw FalError.invalidUrl(url: urlString)
         }
 
-//        print("Client send requestB \(urlString)")
+        print("Client send requestB \(urlString)")
 
         if let queryParams,
            !queryParams.isEmpty,
@@ -69,10 +69,31 @@ extension Client {
 //        request Optional(["User-Agent": "fal.ai/swift-client 0.1.0 - Version 15.0 (Build 24A5298h)", "Authorization": "Key a94ccd57-c4a2-4995-8568-04332edfaaf0:5a1de724fcb3bdb5166c864e37a70340", "Content-Type": "application/json", "Accept": "application/json"])
 
         
-//        print("requestXXX \(request.allHTTPHeaderFields)")
+        print("requestXXX \(request.allHTTPHeaderFields)")
 //        print("request \(request.allHTTPHeaderFields)")
 
-        let (data, response) = try await URLSession.shared.asyncData(from: request)
+        let d:ResponseX = try await withThrowingTaskGroup(of: ResponseX.self) { group in
+            
+            group.addTask
+            {
+                let (data, response) = try await URLSession.shared.asyncData(from: request)
+                
+                return ResponseX(data: data, response: response)
+            }
+            
+            var finalR = [ResponseX]()
+            for try await result in group {
+                finalR += [result]
+            }
+            
+            return finalR.first!
+
+        }
+        
+//        let dataVal = try URLConnection.sendSynchronousRequest(request, returningResponse: response)
+        
+        let data = d.data
+        let response = d.response
         
         if let stringX = String(data:data, encoding:.utf8)
         {
@@ -196,4 +217,10 @@ public extension URLRequest {
             .joined(separator: " ")
     }
     
+}
+
+struct ResponseX
+{
+    let data:Data
+    let response:URLResponse
 }
