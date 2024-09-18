@@ -13,9 +13,14 @@ extension HTTPURLResponse {
 
 extension Client {
     func sendRequest(to urlString: String, input: Data?, queryParams: [String: Any]? = nil, options: RunOptions) async throws -> Data {
+        
+        print("Client send request \(urlString)")
+        
         guard var url = URL(string: urlString) else {
             throw FalError.invalidUrl(url: urlString)
         }
+
+        print("Client send requestB \(urlString)")
 
         if let queryParams,
            !queryParams.isEmpty,
@@ -59,6 +64,8 @@ extension Client {
             request.httpBody = input
         }
         let (data, response) = try await URLSession.shared.asyncData(from: request)
+        
+        
         try checkResponseStatus(for: response, withData: data)
         return data
     }
@@ -82,6 +89,9 @@ extension Client {
             let message = errorPayload?["detail"].stringValue
                 ?? errorPayload?.stringValue
                 ?? HTTPURLResponse.localizedString(forStatusCode: statusCode)
+            
+            print("FalError error \(statusCode) \(message) \(errorPayload)")
+            
             throw FalError.httpError(
                 status: statusCode,
                 message: message,
@@ -91,8 +101,8 @@ extension Client {
     }
 
     var userAgent: String {
-        let osVersion = ProcessInfo.processInfo.operatingSystemVersionString
-        return "fal.ai/swift-client 0.1.0 - \(osVersion)"
+        let osVersion = ProcessInfo.processInfo.operatingSystemVersionString //osVersion    String    "Version 15.0 (Build 24A5298h)"
+        return "fal.ai/swift-client 0.1.0 - Version 15.0 (Build 24A5298h)"//\(osVersion)"
     }
 }
 /// Defines the possible errors

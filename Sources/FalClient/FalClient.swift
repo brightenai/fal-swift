@@ -52,6 +52,8 @@ public struct FalClient: Client {
         includeLogs: Bool,
         onQueueUpdate: OnQueueUpdate?
     ) async throws -> Payload {
+        
+        print("subscribe A")
         let requestId = try await queue.submit(app, input: input)
         let start = Int64(Date().timeIntervalSince1970 * 1000)
         var elapsed: Int64 = 0
