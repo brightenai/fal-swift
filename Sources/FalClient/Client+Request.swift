@@ -14,13 +14,13 @@ extension HTTPURLResponse {
 extension Client {
     func sendRequest(to urlString: String, input: Data?, queryParams: [String: Any]? = nil, options: RunOptions) async throws -> Data {
         
-        print("Client send request \(urlString)")
+//        print("Client send request \(urlString)")
         
         guard var url = URL(string: urlString) else {
             throw FalError.invalidUrl(url: urlString)
         }
 
-        print("Client send requestB \(urlString)")
+//        print("Client send requestB \(urlString)")
 
         if let queryParams,
            !queryParams.isEmpty,
@@ -50,7 +50,7 @@ extension Client {
         let credentials = config.credentials.description
         if !credentials.isEmpty {
             
-            print("FAL got credentials \(config.credentials.description)")
+//            print("FAL got credentials \(config.credentials.description)")
             
             request.setValue("Key \(config.credentials.description)", forHTTPHeaderField: "authorization")
         }
