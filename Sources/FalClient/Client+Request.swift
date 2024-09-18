@@ -67,7 +67,7 @@ extension Client {
         }
 
         if input != nil, options.httpMethod != .get {
-            let bb = ByteBuffer(data:input!)
+            let bb = ByteBuffer(bytes:input!)
             request.body = HTTPClientRequest.Body.bytes(bb)
         }
         
