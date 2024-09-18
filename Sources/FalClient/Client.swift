@@ -41,6 +41,12 @@ public protocol Client {
 
     func run(_ id: String, input: Payload?, options: RunOptions) async throws -> Payload
 
+     func submitWebHook(
+        to app: String,
+        webhookUrl:String,
+        input: Payload?
+    ) async throws -> String
+
     @available(*, deprecated, message: "Pass the path as part of the app identifier instead")
     func subscribe(
         to app: String,

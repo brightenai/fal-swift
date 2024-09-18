@@ -44,6 +44,20 @@ public struct FalClient: Client {
         return try .create(fromJSON: data)
     }
 
+    
+    public func submitWebHook(
+        to app: String,
+        webhookUrl:String,
+        input: Payload?
+    ) async throws -> String {
+        
+        print("subscribe A")
+        let requestId = try await queue.submit(app, input: input,webhookUrl:webhookUrl)
+        print("submitWebHook reply \(requestId)")
+
+        return requestId
+    }
+    
     public func subscribe(
         to app: String,
         input: Payload?,

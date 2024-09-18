@@ -63,11 +63,21 @@ extension Client {
         if input != nil, options.httpMethod != .get {
             request.httpBody = input
         }
-        print("requestXXX \(request.allHTTPHeaderFields)")
+        
+//        Optional(["Content-Type": "application/json", "Accept": "application/json", "Authorization": "Key a94ccd57-c4a2-4995-8568-04332edfaaf0:5a1de724fcb3bdb5166c864e37a70340", "User-Agent": "fal.ai/swift-client 0.1.0 - Version 15.0 (Build 24A5298h)"])
+//
+//        request Optional(["User-Agent": "fal.ai/swift-client 0.1.0 - Version 15.0 (Build 24A5298h)", "Authorization": "Key a94ccd57-c4a2-4995-8568-04332edfaaf0:5a1de724fcb3bdb5166c864e37a70340", "Content-Type": "application/json", "Accept": "application/json"])
+
+        
+//        print("requestXXX \(request.allHTTPHeaderFields)")
 //        print("request \(request.allHTTPHeaderFields)")
 
         let (data, response) = try await URLSession.shared.asyncData(from: request)
         
+        if let stringX = String(data:data, encoding:.utf8)
+        {
+            print("response from FAL \(stringX)")
+        }
         
         try checkResponseStatus(for: response, withData: data)
         return data
@@ -152,4 +162,38 @@ public extension URLSession {
             task.resume()
         }
     }
+}
+
+public extension URLRequest {
+    
+    func cURL() -> String {
+        let cURL = "curl -f"
+        let method = "-X \(self.httpMethod ?? "GET")"
+        let url = url.flatMap { "--url '\($0.absoluteString)'" }
+        
+        let header = self.allHTTPHeaderFields?
+            .map { "-H '\($0): \($1)'" }
+            .joined(separator: " ")
+        
+        let data: String?
+        if let httpBody, !httpBody.isEmpty {
+            if let bodyString = String(data: httpBody, encoding: .utf8) { // json and plain text
+                let escaped = bodyString
+                    .replacingOccurrences(of: "'", with: "'\\''")
+                data = "--data '\(escaped)'"
+            } else { // Binary data
+                let hexString = httpBody
+                    .map { String(format: "%02X", $0) }
+                    .joined()
+                data = #"--data "$(echo '\#(hexString)' | xxd -p -r)""#
+            }
+        } else {
+            data = nil
+        }
+        
+        return [cURL, method, url, header, data]
+            .compactMap { $0 }
+            .joined(separator: " ")
+    }
+    
 }
