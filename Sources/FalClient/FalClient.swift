@@ -59,6 +59,8 @@ public struct FalClient: Client {
         var elapsed: Int64 = 0
         var isCompleted = false
         
+        print("loop status")
+
         while elapsed < timeout.milliseconds {
             let update = try await queue.status(app, of: requestId, includeLogs: includeLogs)
             if let onQueueUpdateCallback = onQueueUpdate {
@@ -69,6 +71,8 @@ public struct FalClient: Client {
                 break
             }
             
+            print("loop after status")
+
             let startTime = Date()
             try await Task.sleep(nanoseconds: UInt64(Int(pollInterval.milliseconds * 1_000_000)))
             elapsed = Int64(Date().timeIntervalSince1970 * 1000) - start

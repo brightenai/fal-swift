@@ -24,13 +24,10 @@
 		792B58612C99238C00FB32AA /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792B58512C99238C00FB32AA /* Queue.swift */; };
 		792B58622C99238C00FB32AA /* Realtime+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792B58522C99238C00FB32AA /* Realtime+Codable.swift */; };
 		792B58652C9923AE00FB32AA /* SwiftMsgpack in Frameworks */ = {isa = PBXBuildFile; productRef = 792B58642C9923AE00FB32AA /* SwiftMsgpack */; };
-		792B58682C9923CD00FB32AA /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = 792B58672C9923CD00FB32AA /* Quick */; };
-		792B586B2C9923E300FB32AA /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = 792B586A2C9923E300FB32AA /* Nimble */; };
-		792B58742C99243500FB32AA /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 792B58732C99243500FB32AA /* XCTest.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		792B582A2C99235D00FB32AA /* FALClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FALClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		792B582A2C99235D00FB32AA /* FALClientX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FALClientX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		792B58432C99238B00FB32AA /* FalImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FalImage.swift; path = ../Sources/FalClient/FalImage.swift; sourceTree = "<group>"; };
 		792B58442C99238B00FB32AA /* Client+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Client+Codable.swift"; path = "../Sources/FalClient/Client+Codable.swift"; sourceTree = "<group>"; };
 		792B58452C99238B00FB32AA /* TimeInterval+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TimeInterval+Extensions.swift"; path = "../Sources/FalClient/TimeInterval+Extensions.swift"; sourceTree = "<group>"; };
@@ -56,7 +53,7 @@
 			publicHeaders = (
 				FALClient.h,
 			);
-			target = 792B58292C99235D00FB32AA /* FALClient */;
+			target = 792B58292C99235D00FB32AA /* FALClientX */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -70,9 +67,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				792B58742C99243500FB32AA /* XCTest.framework in Frameworks */,
-				792B586B2C9923E300FB32AA /* Nimble in Frameworks */,
-				792B58682C9923CD00FB32AA /* Quick in Frameworks */,
 				792B58652C9923AE00FB32AA /* SwiftMsgpack in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -109,7 +103,7 @@
 		792B582B2C99235D00FB32AA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				792B582A2C99235D00FB32AA /* FALClient.framework */,
+				792B582A2C99235D00FB32AA /* FALClientX.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -135,9 +129,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		792B58292C99235D00FB32AA /* FALClient */ = {
+		792B58292C99235D00FB32AA /* FALClientX */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 792B583B2C99235D00FB32AA /* Build configuration list for PBXNativeTarget "FALClient" */;
+			buildConfigurationList = 792B583B2C99235D00FB32AA /* Build configuration list for PBXNativeTarget "FALClientX" */;
 			buildPhases = (
 				792B58252C99235D00FB32AA /* Headers */,
 				792B58262C99235D00FB32AA /* Sources */,
@@ -147,21 +141,20 @@
 			buildRules = (
 			);
 			dependencies = (
-				792B586D2C99242200FB32AA /* PBXTargetDependency */,
 				792B586F2C99242200FB32AA /* PBXTargetDependency */,
 				792B58712C99242200FB32AA /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				792B582C2C99235D00FB32AA /* FALClient */,
 			);
-			name = FALClient;
+			name = FALClientX;
 			packageProductDependencies = (
 				792B58642C9923AE00FB32AA /* SwiftMsgpack */,
 				792B58672C9923CD00FB32AA /* Quick */,
 				792B586A2C9923E300FB32AA /* Nimble */,
 			);
 			productName = FALClient;
-			productReference = 792B582A2C99235D00FB32AA /* FALClient.framework */;
+			productReference = 792B582A2C99235D00FB32AA /* FALClientX.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -197,7 +190,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				792B58292C99235D00FB32AA /* FALClient */,
+				792B58292C99235D00FB32AA /* FALClientX */,
 			);
 		};
 /* End PBXProject section */
@@ -239,10 +232,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		792B586D2C99242200FB32AA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = 792B586C2C99242200FB32AA /* SwiftMsgpack */;
-		};
 		792B586F2C99242200FB32AA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			productRef = 792B586E2C99242200FB32AA /* Quick */;
@@ -279,7 +268,7 @@
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
-				PRODUCT_BUNDLE_IDENTIFIER = brightenai.FALClient;
+				PRODUCT_BUNDLE_IDENTIFIER = brightenai.FALClientX;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -313,7 +302,7 @@
 				MARKETING_VERSION = 1.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
-				PRODUCT_BUNDLE_IDENTIFIER = brightenai.FALClient;
+				PRODUCT_BUNDLE_IDENTIFIER = brightenai.FALClientX;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -458,7 +447,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		792B583B2C99235D00FB32AA /* Build configuration list for PBXNativeTarget "FALClient" */ = {
+		792B583B2C99235D00FB32AA /* Build configuration list for PBXNativeTarget "FALClientX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				792B583C2C99235D00FB32AA /* Debug */,
@@ -511,11 +500,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 792B58692C9923E300FB32AA /* XCRemoteSwiftPackageReference "Nimble" */;
 			productName = Nimble;
-		};
-		792B586C2C99242200FB32AA /* SwiftMsgpack */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 792B58632C9923AE00FB32AA /* XCRemoteSwiftPackageReference "swift-msgpack" */;
-			productName = SwiftMsgpack;
 		};
 		792B586E2C99242200FB32AA /* Quick */ = {
 			isa = XCSwiftPackageProductDependency;

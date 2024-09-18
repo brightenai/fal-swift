@@ -63,6 +63,9 @@ extension Client {
         if input != nil, options.httpMethod != .get {
             request.httpBody = input
         }
+        print("requestXXX \(request.allHTTPHeaderFields)")
+//        print("request \(request.allHTTPHeaderFields)")
+
         let (data, response) = try await URLSession.shared.asyncData(from: request)
         
         
