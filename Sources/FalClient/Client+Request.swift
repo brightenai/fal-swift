@@ -4,6 +4,7 @@ import Foundation
 #endif
 import AsyncHTTPClient
 import NIOCore
+import NIOFoundationCompat
 
 extension HTTPURLResponse {
     /// Returns `true` if `statusCode` is in range 200...299.

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		7925E9832C9B6304007AC5C7 /* AsyncHTTPClient in Frameworks */ = {isa = PBXBuildFile; productRef = 7925E9822C9B6304007AC5C7 /* AsyncHTTPClient */; };
-		7925E9892C9B756B007AC5C7 /* NIO in Frameworks */ = {isa = PBXBuildFile; productRef = 7925E9882C9B756B007AC5C7 /* NIO */; };
 		7925E98B2C9B756B007AC5C7 /* NIOCore in Frameworks */ = {isa = PBXBuildFile; productRef = 7925E98A2C9B756B007AC5C7 /* NIOCore */; };
 		792B58532C99238C00FB32AA /* FalImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792B58432C99238B00FB32AA /* FalImage.swift */; };
 		792B58542C99238C00FB32AA /* Client+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792B58442C99238B00FB32AA /* Client+Codable.swift */; };
@@ -70,7 +69,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7925E9892C9B756B007AC5C7 /* NIO in Frameworks */,
 				7925E9832C9B6304007AC5C7 /* AsyncHTTPClient in Frameworks */,
 				7925E98B2C9B756B007AC5C7 /* NIOCore in Frameworks */,
 				792B58652C9923AE00FB32AA /* SwiftMsgpack in Frameworks */,
