@@ -2,9 +2,9 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
-import AsyncHTTPClient
-import NIOCore
-import NIOFoundationCompat
+@_implementationOnly import AsyncHTTPClient
+@_implementationOnly import NIOCore
+@_implementationOnly import NIOFoundationCompat
 
 extension HTTPURLResponse {
     /// Returns `true` if `statusCode` is in range 200...299.
@@ -43,15 +43,26 @@ extension Client {
             url = proxyUrl
         }
 
+//        curl --request POST \
+//          --url https://queue.fal.run/fal-ai/fast-svd\?fal_webhook\=https://url.to.your.app/api/fal/webhook \
+//          --header "Authorization: Key $FAL_KEY" \
+//          --header 'Content-Type: application/json' \
+//          --data '{
+//          "model_name": "stabilityai/stable-diffusion-xl-base-1.0",
+//          "prompt": "Photo of a cute dog"
+//        }'
+//        FAL ERROR1 HTTPClientError.invalidHeaderFieldNames(["application/json", "application/json", "fal.ai/swift-client 0.1.0 - Version 15.0 (Build 24A5298h)", "Key a94ccd57-c4a2-4995-8568-04332edfaaf0:5a1de724fcb3bdb5166c864e37a70340"])
+
+        
 //        var request = URLRequest(url: url)
         var request = try HTTPClientRequest(url: url.absoluteString)
         request.method = .POST
 
         
         //request.method = options.httpMethod.rawValue.uppercased()
-        request.headers.add(name:"application/json", value: "accept")
-        request.headers.add(name:"application/json", value: "content-type")
-        request.headers.add(name:userAgent, value: "user-agent")
+        request.headers.add(name:"accept", value: "application/json")
+        request.headers.add(name:"content-type", value: "application/json")
+        request.headers.add(name:"user-agent", value:userAgent)
 
         // setup credentials if available
         let credentials = config.credentials.description
@@ -59,7 +70,7 @@ extension Client {
             
 //            print("FAL got credentials \(config.credentials.description)")
             
-            request.headers.add(name:"Key \(config.credentials.description)",value:  "authorization")
+            request.headers.add(name:  "authorization",value:"Key \(config.credentials.description)")
         }
 
         // setup the request proxy if available
