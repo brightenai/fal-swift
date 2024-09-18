@@ -2,6 +2,8 @@ import Foundation
 #if canImport(FoundationNetworking)
     import FoundationNetworking
 #endif
+import AsyncHTTPClient
+import NIOCore
 
 extension HTTPURLResponse {
     /// Returns `true` if `statusCode` is in range 200...299.
@@ -40,11 +42,15 @@ extension Client {
             url = proxyUrl
         }
 
-        var request = URLRequest(url: url)
-        request.httpMethod = options.httpMethod.rawValue.uppercased()
-        request.setValue("application/json", forHTTPHeaderField: "accept")
-        request.setValue("application/json", forHTTPHeaderField: "content-type")
-        request.setValue(userAgent, forHTTPHeaderField: "user-agent")
+//        var request = URLRequest(url: url)
+        var request = try HTTPClientRequest(url: url.absoluteString)
+        request.method = .POST
+
+        
+        //request.method = options.httpMethod.rawValue.uppercased()
+        request.headers.add(name:"application/json", value: "accept")
+        request.headers.add(name:"application/json", value: "content-type")
+        request.headers.add(name:userAgent, value: "user-agent")
 
         // setup credentials if available
         let credentials = config.credentials.description
@@ -52,16 +58,17 @@ extension Client {
             
 //            print("FAL got credentials \(config.credentials.description)")
             
-            request.setValue("Key \(config.credentials.description)", forHTTPHeaderField: "authorization")
+            request.headers.add(name:"Key \(config.credentials.description)",value:  "authorization")
         }
 
         // setup the request proxy if available
         if config.requestProxy != nil {
-            request.setValue(targetUrl.absoluteString, forHTTPHeaderField: "x-fal-target-url")
+            request.headers.add(name:targetUrl.absoluteString, value: "x-fal-target-url")
         }
 
         if input != nil, options.httpMethod != .get {
-            request.httpBody = input
+            let bb = ByteBuffer(data:input!)
+            request.body = HTTPClientRequest.Body.bytes(bb)
         }
         
 //        Optional(["Content-Type": "application/json", "Accept": "application/json", "Authorization": "Key a94ccd57-c4a2-4995-8568-04332edfaaf0:5a1de724fcb3bdb5166c864e37a70340", "User-Agent": "fal.ai/swift-client 0.1.0 - Version 15.0 (Build 24A5298h)"])
@@ -69,39 +76,54 @@ extension Client {
 //        request Optional(["User-Agent": "fal.ai/swift-client 0.1.0 - Version 15.0 (Build 24A5298h)", "Authorization": "Key a94ccd57-c4a2-4995-8568-04332edfaaf0:5a1de724fcb3bdb5166c864e37a70340", "Content-Type": "application/json", "Accept": "application/json"])
 
         
-        print("requestXXX \(request.allHTTPHeaderFields)")
+//        print("requestXXX \(request.allHTTPHeaderFields)")
 //        print("request \(request.allHTTPHeaderFields)")
 
-        let d:ResponseX = try await withThrowingTaskGroup(of: ResponseX.self) { group in
-            
-            let request2 = request
-            group.addTask
-            {
-                let (data, response) = try await URLSession.shared.asyncData(from: request2)
-                
-                return ResponseX(data: data, response: response)
-            }
-            
-            var finalR = [ResponseX]()
-            for try await result in group {
-                finalR += [result]
-            }
-            
-            return finalR.first!
+        
 
-        }
+        request.headers.add(name: "User-Agent", value: "Swift HTTPClient")
+//        request.body = .string("some-body")
+        let response = try await HTTPClient.shared.execute(request, timeout: .seconds(30))
+
+//        let d:ResponseX = try await withThrowingTaskGroup(of: ResponseX.self) { group in
+//            
+//            let request2 = request
+//            group.addTask
+//            {
+//                let (data, response) = try await URLSession.shared.asyncData(from: request2)
+//                
+//                return ResponseX(data: data, response: response)
+//            }
+//            
+//            var finalR = [ResponseX]()
+//            for try await result in group {
+//                finalR += [result]
+//            }
+//            
+//            return finalR.first!
+//
+//        }
         
 //        let dataVal = try URLConnection.sendSynchronousRequest(request, returningResponse: response)
         
-        let data = d.data
-        let response = d.response
+        let body = try await response.body.collect(upTo: 1024 * 1024) // 1 MB
+        
+        if response.status != .ok
+        {
+            print("Fal response.status \(response.status)")
+            throw FalError.queueTimeout
+        }
+        
+        let data = Data(buffer:body)
+//        let data = response.body.
+//        let response = d.response
         
         if let stringX = String(data:data, encoding:.utf8)
         {
             print("response from FAL \(stringX)")
         }
         
-        try checkResponseStatus(for: response, withData: data)
+        //try checkResponseStatus(for: response, withData: data)
         return data
     }
 
@@ -225,3 +247,5 @@ struct ResponseX
     let data:Data
     let response:URLResponse
 }
+
+

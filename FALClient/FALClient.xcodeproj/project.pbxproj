@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7925E9832C9B6304007AC5C7 /* AsyncHTTPClient in Frameworks */ = {isa = PBXBuildFile; productRef = 7925E9822C9B6304007AC5C7 /* AsyncHTTPClient */; };
+		7925E9892C9B756B007AC5C7 /* NIO in Frameworks */ = {isa = PBXBuildFile; productRef = 7925E9882C9B756B007AC5C7 /* NIO */; };
+		7925E98B2C9B756B007AC5C7 /* NIOCore in Frameworks */ = {isa = PBXBuildFile; productRef = 7925E98A2C9B756B007AC5C7 /* NIOCore */; };
 		792B58532C99238C00FB32AA /* FalImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792B58432C99238B00FB32AA /* FalImage.swift */; };
 		792B58542C99238C00FB32AA /* Client+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792B58442C99238B00FB32AA /* Client+Codable.swift */; };
 		792B58552C99238C00FB32AA /* TimeInterval+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792B58452C99238B00FB32AA /* TimeInterval+Extensions.swift */; };
@@ -67,6 +70,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7925E9892C9B756B007AC5C7 /* NIO in Frameworks */,
+				7925E9832C9B6304007AC5C7 /* AsyncHTTPClient in Frameworks */,
+				7925E98B2C9B756B007AC5C7 /* NIOCore in Frameworks */,
 				792B58652C9923AE00FB32AA /* SwiftMsgpack in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -141,8 +147,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				792B586F2C99242200FB32AA /* PBXTargetDependency */,
-				792B58712C99242200FB32AA /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				792B582C2C99235D00FB32AA /* FALClient */,
@@ -150,8 +154,9 @@
 			name = FALClientX;
 			packageProductDependencies = (
 				792B58642C9923AE00FB32AA /* SwiftMsgpack */,
-				792B58672C9923CD00FB32AA /* Quick */,
-				792B586A2C9923E300FB32AA /* Nimble */,
+				7925E9822C9B6304007AC5C7 /* AsyncHTTPClient */,
+				7925E9882C9B756B007AC5C7 /* NIO */,
+				7925E98A2C9B756B007AC5C7 /* NIOCore */,
 			);
 			productName = FALClient;
 			productReference = 792B582A2C99235D00FB32AA /* FALClientX.framework */;
@@ -183,8 +188,8 @@
 			mainGroup = 792B58202C99235D00FB32AA;
 			packageReferences = (
 				792B58632C9923AE00FB32AA /* XCRemoteSwiftPackageReference "swift-msgpack" */,
-				792B58662C9923CD00FB32AA /* XCRemoteSwiftPackageReference "Quick" */,
-				792B58692C9923E300FB32AA /* XCRemoteSwiftPackageReference "Nimble" */,
+				7925E9812C9B6304007AC5C7 /* XCRemoteSwiftPackageReference "async-http-client" */,
+				7925E9872C9B756B007AC5C7 /* XCRemoteSwiftPackageReference "swift-nio" */,
 			);
 			productRefGroup = 792B582B2C99235D00FB32AA /* Products */;
 			projectDirPath = "";
@@ -230,17 +235,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		792B586F2C99242200FB32AA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = 792B586E2C99242200FB32AA /* Quick */;
-		};
-		792B58712C99242200FB32AA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = 792B58702C99242200FB32AA /* Nimble */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		792B583C2C99235D00FB32AA /* Debug */ = {
@@ -459,6 +453,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		7925E9812C9B6304007AC5C7 /* XCRemoteSwiftPackageReference "async-http-client" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/swift-server/async-http-client.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.22.2;
+			};
+		};
+		7925E9872C9B756B007AC5C7 /* XCRemoteSwiftPackageReference "swift-nio" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-nio.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.72.0;
+			};
+		};
 		792B58632C9923AE00FB32AA /* XCRemoteSwiftPackageReference "swift-msgpack" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/nnabeyang/swift-msgpack.git";
@@ -467,49 +477,28 @@
 				minimumVersion = 0.5.0;
 			};
 		};
-		792B58662C9923CD00FB32AA /* XCRemoteSwiftPackageReference "Quick" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Quick/Quick.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-		792B58692C9923E300FB32AA /* XCRemoteSwiftPackageReference "Nimble" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Quick/Nimble.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		7925E9822C9B6304007AC5C7 /* AsyncHTTPClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7925E9812C9B6304007AC5C7 /* XCRemoteSwiftPackageReference "async-http-client" */;
+			productName = AsyncHTTPClient;
+		};
+		7925E9882C9B756B007AC5C7 /* NIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7925E9872C9B756B007AC5C7 /* XCRemoteSwiftPackageReference "swift-nio" */;
+			productName = NIO;
+		};
+		7925E98A2C9B756B007AC5C7 /* NIOCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7925E9872C9B756B007AC5C7 /* XCRemoteSwiftPackageReference "swift-nio" */;
+			productName = NIOCore;
+		};
 		792B58642C9923AE00FB32AA /* SwiftMsgpack */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 792B58632C9923AE00FB32AA /* XCRemoteSwiftPackageReference "swift-msgpack" */;
 			productName = SwiftMsgpack;
-		};
-		792B58672C9923CD00FB32AA /* Quick */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 792B58662C9923CD00FB32AA /* XCRemoteSwiftPackageReference "Quick" */;
-			productName = Quick;
-		};
-		792B586A2C9923E300FB32AA /* Nimble */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 792B58692C9923E300FB32AA /* XCRemoteSwiftPackageReference "Nimble" */;
-			productName = Nimble;
-		};
-		792B586E2C99242200FB32AA /* Quick */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 792B58662C9923CD00FB32AA /* XCRemoteSwiftPackageReference "Quick" */;
-			productName = Quick;
-		};
-		792B58702C99242200FB32AA /* Nimble */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 792B58692C9923E300FB32AA /* XCRemoteSwiftPackageReference "Nimble" */;
-			productName = Nimble;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
