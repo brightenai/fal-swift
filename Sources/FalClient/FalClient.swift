@@ -51,9 +51,9 @@ public struct FalClient: Client {
         input: Payload?
     ) async throws -> String {
         
-        print("subscribe A")
+        //print("subscribe A")
         let requestId = try await queue.submit(app, input: input,webhookUrl:webhookUrl)
-        print("submitWebHook reply \(requestId)")
+        //print("submitWebHook reply \(requestId)")
 
         return requestId
     }
@@ -67,13 +67,13 @@ public struct FalClient: Client {
         onQueueUpdate: OnQueueUpdate?
     ) async throws -> Payload {
         
-        print("subscribe A")
+//        print("subscribe A")
         let requestId = try await queue.submit(app, input: input)
         let start = Int64(Date().timeIntervalSince1970 * 1000)
         var elapsed: Int64 = 0
         var isCompleted = false
         
-        print("loop status")
+//        print("loop status")
 
         while elapsed < timeout.milliseconds {
             let update = try await queue.status(app, of: requestId, includeLogs: includeLogs)

@@ -17,13 +17,13 @@ extension HTTPURLResponse {
 extension Client {
     func sendRequest(to urlString: String, input: Data?, queryParams: [String: Any]? = nil, options: RunOptions) async throws -> Data {
         
-        print("Client send request \(urlString)")
+//        print("Client send request \(urlString)")
         
         guard var url = URL(string: urlString) else {
             throw FalError.invalidUrl(url: urlString)
         }
 
-        print("Client send requestB \(urlString)")
+//        print("Client send requestB \(urlString)")
 
         if let queryParams,
            !queryParams.isEmpty,
@@ -130,10 +130,10 @@ extension Client {
 //        let data = response.body.
 //        let response = d.response
         
-        if let stringX = String(data:data, encoding:.utf8)
-        {
-            print("response from FAL \(stringX)")
-        }
+//        if let stringX = String(data:data, encoding:.utf8)
+//        {
+//            print("response from FAL \(stringX)")
+//        }
         
         //try checkResponseStatus(for: response, withData: data)
         return data

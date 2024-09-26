@@ -65,7 +65,7 @@ public struct QueueClient: Queue {
         let queryParams: [String: Any] = webhookUrl != nil ? ["fal_webhook": webhookUrl ?? ""] : [:]
         let result: Payload = try await runOnQueue(id, input: input, queryParams: queryParams, options: .withMethod(.post))
         
-        print("result webhook api \(result)")
+     //   print("result webhook api \(result)")
         
         guard case let .string(requestId) = result["request_id"] else {
             throw FalError.invalidResultFormat
